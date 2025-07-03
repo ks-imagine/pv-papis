@@ -153,7 +153,7 @@ function showWaitingForNextQuestion(team) {
             <div style="text-align: center; padding: 40px;">
                 <h2 style="color: #28a745; margin-bottom: 20px;">✅ Answer Submitted!</h2>
                 <p style="font-size: 1.2rem; color: #333; line-height: 1.6;">
-                    Great job! Please wait for the admin to reveal the next question.
+                    Great job! Please wait for  the next question.
                 </p>
                 <div style="margin-top: 30px; font-size: 3rem;">⏱️</div>
             </div>
