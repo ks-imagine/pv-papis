@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 50%, #ff9a8b 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,20 +22,26 @@
         }
 
         .container {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 60px 40px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             text-align: center;
             max-width: 500px;
             width: 90%;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
         }
 
         h1 {
-            color: #333;
             margin-bottom: 20px;
             font-size: 2.5rem;
             font-weight: bold;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .subtitle {
@@ -99,8 +105,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>🌴 PV Trivia</h1>
-        <p class="subtitle">Choose your team to get started!</p>
+        <h1>🌴 PV PAPIS 🌴</h1>
+        <p class="subtitle">BATTLE OF THE SEXES TRIVIA CHALLENGE</p>
         
         <div class="team-buttons">
             <a href="pages/teams/team-girls-1.html" class="team-button team-girls">
