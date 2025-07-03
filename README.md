@@ -2,6 +2,8 @@
 
 A fun interactive trivia game website for two teams (Girls vs Boys) with Firebase backend and real-time admin controls.
 
+🎯 **Live Demo**: [https://ks-imagine.github.io/pv-papis/](https://ks-imagine.github.io/pv-papis/)
+
 ## Features
 
 - **Team Selection**: Choose between Team Girls and Team Boys
@@ -12,6 +14,19 @@ A fun interactive trivia game website for two teams (Girls vs Boys) with Firebas
 - **Main Display**: TV-friendly display for audience viewing
 - **Firebase Integration**: Real-time data storage and synchronization
 - **Reset Game**: Admin can reset entire game and delete all answers
+- **Question Access Control**: Teams can only see questions when admin displays them
+
+## Quick Start
+
+1. **Start the Game**: Visit [https://ks-imagine.github.io/pv-papis/](https://ks-imagine.github.io/pv-papis/)
+2. **Admin Control**: Go to [Admin Panel](https://ks-imagine.github.io/pv-papis/admin/admin.html)
+3. **Main Display**: Show [TV Display](https://ks-imagine.github.io/pv-papis/pages/display.html) on screen
+
+## Game URLs
+
+- **Team Selection**: `https://ks-imagine.github.io/pv-papis/`
+- **Admin Panel**: `https://ks-imagine.github.io/pv-papis/admin/admin.html`
+- **Main Display**: `https://ks-imagine.github.io/pv-papis/pages/display.html`
 
 ## File Structure
 
@@ -122,6 +137,22 @@ The bonus question is a special "double-or-nothing" round that appears after tea
 - **Display**: Special bonus screen with Einstein image and dramatic styling
 
 ## Sample Questions
+## Deployment
+
+This project is automatically deployed to GitHub Pages using GitHub Actions. Any push to the `main` branch will trigger a new deployment.
+
+### Manual Deployment Steps:
+1. Push changes to the `main` branch
+2. GitHub Actions will automatically build and deploy
+3. Site will be available at: `https://ks-imagine.github.io/pv-papis/`
+
+### Local Development:
+1. Clone the repository
+2. Open `index.html` in a web browser
+3. For admin functions, open `admin/admin.html`
+4. For display, open `pages/display.html`
+
+## Sample Questions
 
 1. What is the capital of France?
 2. Which planet is known as the Red Planet?
@@ -137,9 +168,9 @@ The bonus question is a special "double-or-nothing" round that appears after tea
 ## Customization
 
 ### To Change Questions:
-1. Edit the `questions` array in `generate-pages.js`
-2. Run `node generate-pages.js` to regenerate question pages
-3. Update the `questions` array in `display.html` to match
+1. Edit the `questions` array in `utils/generate-pages.js`
+2. Run `node utils/generate-pages.js` from the project root
+3. Update the `questions` array in `pages/display.html` to match
 
 ### To Modify Styling:
 - Each HTML file contains embedded CSS for easy customization
