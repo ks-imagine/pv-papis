@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Girls - Bonus Question</title>
+    <link rel="stylesheet" href="../../styles/bonus-styles.css">
+</head>
+<body class="girls-theme">
+    <div class="waiting-message" id="waitingMessage">
+        <h2>🎯 Team Girls - Bonus Round</h2>
+        <p>Please wait for the admin to reveal the bonus question!</p>
+        <p>🤔 Something special is coming...</p>
+    </div>
+
+    <div class="container hidden" id="bonusContainer">
+        <div class="team-header">
+            <div class="team-name">👩‍🎓 Team Girls</div>
+        </div>
+        
+        <div class="bonus-label">🏆 BONUS QUESTION 🏆</div>
+        
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/256px-Albert_Einstein_Head.jpg" 
+             alt="Einstein" class="einstein-image">
+        
+        <div class="question-text">
+            What is Einstein's theory of relativity and how did it change our understanding of space and time?
+        </div>
+        
+        <div class="warning">
+            ⚠️ <strong>Double or Nothing!</strong> ⚠️<br>
+            Get this right and double your score! Get it wrong and lose all your points!
+        </div>
+        
+        <div class="message" id="message"></div>
+        
+        <form id="bonusForm">
+            <div class="form-group">
+                <label for="answer">Your Answer:</label>
+                <textarea id="answer" name="answer" placeholder="Enter your detailed answer here..." required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Final Answer</button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, doc, onSnapshot, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1ayS7BnUHBCCVs-BooYGOdlrSSdmo7Bk",
+            authDomain: "pv-trivia.firebaseapp.com",
+            projectId: "pv-trivia",
+            storageBucket: "pv-trivia.firebasestorage.app",
+            messagingSenderId: "1021041174389",
+            appId: "1:1021041174389:web:8ed1d9d914fac43bae153c"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Check if bonus question is revealed
+        function checkBonusRevealed() {
+            const gameStateRef = doc(db, 'game_control', 'current_state');
+            onSnapshot(gameStateRef, (doc) => {
+                if (doc.exists()) {
+                    const data = doc.data();
+                    const gameState = data.state;
+                    const currentQuestion = data.question;
+                    
+                    // Check if team has already submitted bonus answer
+                    checkIfBonusSubmitted().then(hasSubmitted => {
+                        if (hasSubmitted) {
+                            // Team has submitted - show appropriate message based on state
+                            if (gameState === 'thank-you') {
+                                showThankYouMessage();
+                            } else {
+                                // Stay on "fate is in judges hands" message - don't change anything
+                                return;
+                            }
+                        } else {
+                            // Team hasn't submitted yet - normal reveal logic
+                            if ((gameState === 'bonus') || (gameState === 'question' && currentQuestion === 'bonus')) {
+                                // Show bonus question
+                                document.getElementById('waitingMessage').style.display = 'none';
+                                document.getElementById('bonusContainer').classList.remove('hidden');
+                            } else if (gameState === 'thank-you') {
+                                showThankYouMessage();
+                            } else {
+                                // Hide bonus question
+                                document.getElementById('waitingMessage').style.display = 'block';
+                                document.getElementById('bonusContainer').classList.add('hidden');
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // Check if team has already submitted bonus answer
+        async function checkIfBonusSubmitted() {
+            try {
+                const answersRef = collection(db, 'trivia_answers');
+                const q = query(answersRef, where('team', '==', 'girls'), where('question', '==', 'bonus'));
+                const querySnapshot = await getDocs(q);
+                return !querySnapshot.empty;
+            } catch (error) {
+                console.error('Error checking bonus submission:', error);
+                return false;
+            }
+        }
+
+        // Show thank you message
+        function showThankYouMessage() {
+            document.getElementById('waitingMessage').style.display = 'none';
+            document.getElementById('bonusContainer').style.display = 'none';
+            
+            // Create or update thank you container
+            let thankYouContainer = document.getElementById('thankYouContainer');
+            if (!thankYouContainer) {
+                thankYouContainer = document.createElement('div');
+                thankYouContainer.id = 'thankYouContainer';
+                thankYouContainer.className = 'container';
+                document.body.appendChild(thankYouContainer);
+            }
+            
+            thankYouContainer.innerHTML = `
+                <div class="team-header">
+                    <div class="team-name">👩‍🎓 Team Girls</div>
+                </div>
+                <div style="text-align: center; padding: 40px;">
+                    <h2 style="color: #ff6b6b; margin-bottom: 30px;">🎉 Thank You for Playing!</h2>
+                    <p style="font-size: 1.3rem; color: #333; line-height: 1.6; margin-bottom: 20px;">
+                        Congratulations on completing the PV Trivia challenge!
+                    </p>
+                    <p style="font-size: 1.1rem; color: #666;">
+                        You've shown great teamwork and knowledge.<br>
+                        Results will be announced soon!
+                    </p>
+                    <div style="margin-top: 30px; font-size: 3rem;">🏆</div>
+                </div>
+            `;
+            thankYouContainer.style.display = 'block';
+        }
+
+        // Show message function
+        function showMessage(text, type) {
+            const message = document.getElementById('message');
+            if (message) {
+                message.textContent = text;
+                message.className = `message ${type}-message`;
+                message.style.display = 'block';
+                
+                if (type === 'success') {
+                    setTimeout(() => {
+                        message.style.display = 'none';
+                    }, 5000);
+                }
+            }
+        }
+
+        // Initialize page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            checkBonusRevealed();
+            
+            // Handle form submission
+            const form = document.getElementById('bonusForm');
+            const answerInput = document.getElementById('answer');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const answer = answerInput.value.trim();
+                
+                if (!answer) {
+                    showMessage('Please enter an answer before submitting.', 'error');
+                    return;
+                }
+                
+                try {
+                    // Submit answer to Firebase
+                    await addDoc(collection(db, 'trivia_answers'), {
+                        team: 'girls',
+                        question: 'bonus',
+                        answer: answer,
+                        timestamp: new Date()
+                    });
+                    
+                    showMessage('Bonus answer submitted successfully!', 'success');
+                    
+                    // Disable form
+                    form.style.display = 'none';
+                    
+                    // Show completion message
+                    setTimeout(() => {
+                        document.querySelector('.container').innerHTML = `
+                            <div class="team-header">
+                                <div class="team-name">👩‍🎓 Team Girls</div>
+                            </div>
+                            <div style="text-align: center; padding: 40px;">
+                                <h2 style="color: #ff6b6b; margin-bottom: 20px;">🎯 Bonus Answer Submitted!</h2>
+                                <p style="font-size: 1.2rem; color: #333;">
+                                    Your fate is now in the hands of the judges!<br>
+                                    Good luck, Team Girls! 🤞
+                                </p>
+                            </div>
+                        `;
+                    }, 2000);
+                    
+                } catch (error) {
+                    console.error('Error submitting answer:', error);
+                    showMessage('Error submitting answer. Please try again.', 'error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

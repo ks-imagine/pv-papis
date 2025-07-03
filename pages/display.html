@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PV Trivia - Main Display</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .team-score {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            min-width: 200px;
+        }
+
+        .team-name {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .score-number {
+            font-size: 5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .girls-team {
+            border: 3px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .boys-team {
+            border: 3px solid #4ecdc4;
+            color: #4ecdc4;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .content-area {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 1000px;
+            width: 100%;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .welcome-screen h1 {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-screen p {
+            font-size: 1.8rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .question-display h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .question-text {
+            font-size: 3rem;
+            color: #444;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .answers-display {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .answers-display h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .answer-item {
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            border-left: 6px solid #ddd;
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .girls-answer {
+            background: rgba(255, 107, 107, 0.1);
+            border-left-color: #ff6b6b;
+        }
+
+        .boys-answer {
+            background: rgba(78, 205, 196, 0.1);
+            border-left-color: #4ecdc4;
+        }
+
+        .answer-team {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .girls-answer .answer-team {
+            color: #ff6b6b;
+        }
+
+        .boys-answer .answer-team {
+            color: #4ecdc4;
+        }
+
+        .answer-text {
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .final-results {
+            text-align: center;
+        }
+
+        .final-results h1 {
+            font-size: 4rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .final-scores {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 40px;
+        }
+
+        .final-team-score {
+            text-align: center;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.05);
+            min-width: 250px;
+        }
+
+        .final-team-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .final-score-number {
+            font-size: 6rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .final-girls {
+            border: 4px solid #ff6b6b;
+        }
+
+        .final-girls .final-team-name,
+        .final-girls .final-score-number {
+            color: #ff6b6b;
+        }
+
+        .final-boys {
+            border: 4px solid #4ecdc4;
+        }
+
+        .final-boys .final-team-name,
+        .final-boys .final-score-number {
+            color: #4ecdc4;
+        }
+
+        .winner-announcement {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+            margin-top: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .celebration {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .bonus-screen {
+            text-align: center;
+        }
+
+        .bonus-image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .bonus-image {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .bonus-description {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        .thanks-screen {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .thanks-message {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .thanks-footer {
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 1200px) {
+            .title { font-size: 3rem; }
+            .content-area { padding: 40px; }
+            .question-text { font-size: 2.5rem; }
+            .final-results h1 { font-size: 3rem; }
+            .final-scores { flex-direction: column; gap: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            .scoreboard { flex-direction: column; gap: 20px; }
+            .team-score { min-width: auto; }
+            .main-content { padding: 20px; }
+            .content-area { padding: 30px; }
+            .title { font-size: 2.5rem; }
+            .question-text { font-size: 2rem; }
+            .answer-text { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">🎯 PV Trivia</div>
+        <div class="subtitle">The Ultimate Trivia Challenge</div>
+    </div>
+
+    <div class="scoreboard">
+        <div class="team-score girls-team">
+            <div class="team-name">👩‍🎓 Team Girls</div>
+            <div class="score-number" id="girlsScore">0</div>
+        </div>
+        <div class="team-score boys-team">
+            <div class="team-name">👨‍🎓 Team Boys</div>
+            <div class="score-number" id="boysScore">0</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- Welcome Screen -->
+        <div class="content-area welcome-screen" id="welcomeScreen">
+            <h1>Welcome to PV Trivia!</h1>
+            <p>Get ready for an exciting trivia challenge between Team Girls and Team Boys!</p>
+            <p>The game is about to begin...</p>
+        </div>
+
+        <!-- Question Display -->
+        <div class="content-area question-display hidden" id="questionScreen">
+            <h2>Question <span id="questionNumber">1</span></h2>
+            <div class="question-text" id="questionText">Loading question...</div>
+        </div>
+
+        <!-- Answers Display -->
+        <div class="content-area answers-display hidden" id="answersScreen">
+            <h2>Answers - Question <span id="answersQuestionNumber">1</span></h2>
+            <div id="answersContainer">
+                <!-- Answers will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Bonus Question Screen -->
+        <div class="content-area bonus-screen hidden" id="bonusScreen">
+            <div class="celebration">🧠</div>
+            <h1>Bonus Question!</h1>
+            <div class="bonus-image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/256px-Albert_Einstein_Head.jpg" 
+                     alt="Einstein" class="bonus-image">
+            </div>
+            <h2>Double or Nothing!</h2>
+            <div class="question-text">What is the theory of relativity?</div>
+            <p class="bonus-description">Teams can double their score or lose it all!</p>
+        </div>
+
+        <!-- Final Results -->
+        <div class="content-area final-results hidden" id="finalScreen">
+            <div class="celebration">🎉</div>
+            <h1>Final Results!</h1>
+            <div class="winner-announcement" id="winnerAnnouncement">
+                <!-- Winner will be announced here -->
+            </div>
+        </div>
+
+        <!-- Thanks for Playing Screen -->
+        <div class="content-area thanks-screen hidden" id="thanksScreen">
+            <div class="celebration">🎊</div>
+            <h1>Thanks for Playing!</h1>
+            <p class="thanks-message">
+                Great job everyone! 🎯
+            </p>
+            <div class="thanks-footer">
+                Hope you had fun with PV Trivia! 
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getFirestore, collection, doc, onSnapshot, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1ayS7BnUHBCCVs-BooYGOdlrSSdmo7Bk",
+            authDomain: "pv-trivia.firebaseapp.com",
+            projectId: "pv-trivia",
+            storageBucket: "pv-trivia.firebasestorage.app",
+            messagingSenderId: "1021041174389",
+            appId: "1:1021041174389:web:8ed1d9d914fac43bae153c"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Sample questions
+        const questions = [
+            "What is the capital of France?",
+            "Which planet is known as the Red Planet?",
+            "Who painted the Mona Lisa?",
+            "What is the largest ocean on Earth?",
+            "In which year did World War II end?",
+            "What is the chemical symbol for gold?",
+            "Which country invented pizza?",
+            "What is the tallest mountain in the world?",
+            "Who wrote the novel 'Pride and Prejudice'?",
+            "What is the smallest planet in our solar system?"
+        ];
+
+        // Game state
+        let currentQuestion = 1;
+        let scores = { girls: 0, boys: 0 };
+
+        // Initialize display
+        document.addEventListener('DOMContentLoaded', function() {
+            setupRealtimeListeners();
+            loadScores();
+        });
+
+        // Setup realtime listeners
+        function setupRealtimeListeners() {
+            // Listen for game state changes
+            onSnapshot(doc(db, 'game_control', 'current_state'), (doc) => {
+                if (doc.exists()) {
+                    const data = doc.data();
+                    handleGameStateChange(data.state, data.question || 1);
+                }
+            });
+
+            // Listen for score changes
+            onSnapshot(doc(db, 'game_control', 'scores'), (doc) => {
+                if (doc.exists()) {
+                    scores = doc.data();
+                    updateScoreDisplay();
+                }
+            });
+        }
+
+        // Handle game state changes
+        function handleGameStateChange(state, questionNumber) {
+            currentQuestion = questionNumber;
+            
+            // Hide all screens
+            document.querySelectorAll('.content-area').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+
+            // Show appropriate screen
+            switch(state) {
+                case 'welcome':
+                    document.getElementById('welcomeScreen').classList.remove('hidden');
+                    break;
+                case 'question':
+                    showQuestion(questionNumber);
+                    break;
+                case 'answers':
+                    showAnswers(questionNumber);
+                    break;
+                case 'bonus':
+                    showBonus();
+                    break;
+                case 'final':
+                    showFinalResults();
+                    break;
+                case 'thanks':
+                    showThanks();
+                    break;
+            }
+        }
+
+        // Show question screen
+        function showQuestion(questionNumber) {
+            document.getElementById('questionNumber').textContent = questionNumber;
+            document.getElementById('questionText').textContent = questions[questionNumber - 1];
+            document.getElementById('questionScreen').classList.remove('hidden');
+        }
+
+        // Show answers screen
+        async function showAnswers(questionNumber) {
+            document.getElementById('answersQuestionNumber').textContent = questionNumber;
+            
+            try {
+                const answersRef = collection(db, 'trivia_answers');
+                const q = query(answersRef, where('question', '==', questionNumber), orderBy('timestamp', 'asc'));
+                const querySnapshot = await getDocs(q);
+                
+                const container = document.getElementById('answersContainer');
+                container.innerHTML = '';
+                
+                if (querySnapshot.empty) {
+                    container.innerHTML = '<p style="text-align: center; font-size: 1.5rem; color: #666;">No answers submitted yet.</p>';
+                } else {
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const answerDiv = document.createElement('div');
+                        answerDiv.className = `answer-item ${data.team}-answer`;
+                        answerDiv.innerHTML = `
+                            <div class="answer-team">Team ${data.team.charAt(0).toUpperCase() + data.team.slice(1)}</div>
+                            <div class="answer-text">${data.answer}</div>
+                        `;
+                        container.appendChild(answerDiv);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading answers:', error);
+                document.getElementById('answersContainer').innerHTML = '<p style="text-align: center; font-size: 1.5rem; color: #666;">Error loading answers.</p>';
+            }
+            
+            document.getElementById('answersScreen').classList.remove('hidden');
+        }
+
+        // Show bonus question screen
+        function showBonus() {
+            document.getElementById('bonusScreen').classList.remove('hidden');
+        }
+
+        // Show final results
+        function showFinalResults() {
+            const winnerElement = document.getElementById('winnerAnnouncement');
+            if (scores.girls > scores.boys) {
+                winnerElement.textContent = '🏆 Team Girls Wins! 🏆';
+                winnerElement.style.color = '#ff6b6b';
+            } else if (scores.boys > scores.girls) {
+                winnerElement.textContent = '🏆 Team Boys Wins! 🏆';
+                winnerElement.style.color = '#4ecdc4';
+            } else {
+                winnerElement.textContent = '🤝 It\'s a Tie! 🤝';
+                winnerElement.style.color = '#667eea';
+            }
+            
+            document.getElementById('finalScreen').classList.remove('hidden');
+        }
+
+        // Show thanks screen
+        function showThanks() {
+            document.getElementById('thanksScreen').classList.remove('hidden');
+        }
+
+        // Load scores
+        async function loadScores() {
+            try {
+                const docSnap = await getDocs(collection(db, 'game_control'));
+                docSnap.forEach((doc) => {
+                    if (doc.id === 'scores') {
+                        scores = doc.data();
+                        updateScoreDisplay();
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading scores:', error);
+            }
+        }
+
+        // Update score display
+        function updateScoreDisplay() {
+            document.getElementById('girlsScore').textContent = scores.girls;
+            document.getElementById('boysScore').textContent = scores.boys;
+        }
+    </script>
+</body>
+</html>
