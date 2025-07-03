@@ -58,7 +58,7 @@ window.initializeBonusPage = function(team, teamDisplayName) {
                         <div class="team-name">${getTeamEmoji(team)} ${teamDisplayName}</div>
                     </div>
                     <div style="text-align: center; padding: 40px;">
-                        <h2 style="color: ${getTeamColor(team)}; margin-bottom: 20px;">🎯 Bonus Answer Submitted!</h2>
+                        <h2 style="color: ${getTeamColor(team)}; margin-bottom: 20px;">🌴 Bonus Answer Submitted!</h2>
                         <p style="font-size: 1.2rem; color: #333;">
                             Your fate is now in the hands of the judges!<br>
                             Good luck, ${teamDisplayName}! 🤞

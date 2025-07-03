@@ -2,7 +2,7 @@
 
 A fun interactive trivia game website for two teams (Girls vs Boys) with Firebase backend and real-time admin controls.
 
-🎯 **Live Demo**: [https://ks-imagine.github.io/pv-papis/](https://ks-imagine.github.io/pv-papis/)
+🌴 **Live Demo**: [https://ks-imagine.github.io/pv-papis/](https://ks-imagine.github.io/pv-papis/)
 
 ## Features
 

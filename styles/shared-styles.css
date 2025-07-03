@@ -177,15 +177,15 @@ body {
 
 /* Girls Team Colors */
 .girls-theme {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff9a8b 50%, #ffb347 100%);
 }
 
 .girls-theme .team-header {
-    background: #ff6b6b;
+    background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
 }
 
 .girls-theme .progress-fill {
-    background: #ff6b6b;
+    background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
 }
 
 .girls-theme .answer-input:focus {
@@ -193,21 +193,21 @@ body {
 }
 
 .girls-theme .submit-button {
-    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-    box-shadow: 0 5px 15px rgba(238, 90, 82, 0.3);
+    background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
+    box-shadow: 0 5px 15px rgba(255, 154, 139, 0.4);
 }
 
 /* Boys Team Colors */
 .boys-theme {
-    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    background: linear-gradient(135deg, #4ecdc4 0%, #92fe9d 50%, #00c9ff 100%);
 }
 
 .boys-theme .team-header {
-    background: #4ecdc4;
+    background: linear-gradient(135deg, #4ecdc4, #92fe9d);
 }
 
 .boys-theme .progress-fill {
-    background: #4ecdc4;
+    background: linear-gradient(135deg, #4ecdc4, #92fe9d);
 }
 
 .boys-theme .answer-input:focus {
@@ -215,6 +215,6 @@ body {
 }
 
 .boys-theme .submit-button {
-    background: linear-gradient(135deg, #4ecdc4, #44a08d);
-    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+    background: linear-gradient(135deg, #4ecdc4, #92fe9d);
+    box-shadow: 0 5px 15px rgba(146, 254, 157, 0.4);
 }
