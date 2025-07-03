@@ -26,8 +26,8 @@
 
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Riley_Reid_2019_by_Glenn_Francis.jpg/500px-Riley_Reid_2019_by_Glenn_Francis.jpg"
-        alt="Riley Reid"
-        class="riley-reid-image"
+        alt="RR"
+        class="rr-image"
       />
 
       <div class="question-text">
@@ -47,7 +47,7 @@
           <textarea
             id="answer"
             name="answer"
-            placeholder="Enter your detailed answer here..."
+            placeholder="Type your answer here..."
             required
           ></textarea>
         </div>
@@ -96,7 +96,7 @@
             checkIfBonusSubmitted().then((hasSubmitted) => {
               if (hasSubmitted) {
                 // Team has submitted - show appropriate message based on state
-                if (gameState === "thank-you") {
+                if (gameState === "thanks") {
                   showThankYouMessage();
                 } else {
                   // Stay on "fate is in judges hands" message - don't change anything
@@ -114,7 +114,7 @@
                   document
                     .getElementById("bonusContainer")
                     .classList.remove("hidden");
-                } else if (gameState === "thank-you") {
+                } else if (gameState === "thanks") {
                   showThankYouMessage();
                 } else {
                   // Hide bonus question
@@ -166,13 +166,9 @@
                     <div class="team-name">🕺 Team Boys</div>
                 </div>
                 <div style="text-align: center; padding: 40px;">
-                    <h2 style="color: #4ecdc4; margin-bottom: 30px;">🎉 Thank You for Playing!</h2>
-                    <p style="font-size: 1.3rem; color: #333; line-height: 1.6; margin-bottom: 20px;">
-                        Congratulations on completing the PV Trivia challenge!
-                    </p>
-                    <p style="font-size: 1.1rem; color: #666;">
-                        You've shown great teamwork and knowledge.<br>
-                        Results will be announced soon!
+                    <h2 style="color: #4ecdc4; margin-bottom: 30px;">🍹 Thanks for playing!</h2>
+                    <p style="font-size: 0.7rem; color: #666;">
+                        <em>*fair and balanced questions were carefully selected by a panel of experts</em>
                     </p>
                     <div style="margin-top: 30px; font-size: 3rem;">🏆</div>
                 </div>

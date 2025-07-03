@@ -73,7 +73,7 @@ body {
   margin-bottom: 20px;
 }
 
-.riley-reid-image {
+.rr-image {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -196,7 +196,7 @@ body {
   background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
 }
 
-.girls-theme .riley-reid-image {
+.girls-theme .rr-image {
   border-color: #ff6b6b;
 }
 
@@ -226,7 +226,7 @@ body {
   background: linear-gradient(135deg, #4ecdc4, #92fe9d);
 }
 
-.boys-theme .riley-reid-image {
+.boys-theme .rr-image {
   border-color: #4ecdc4;
 }
 

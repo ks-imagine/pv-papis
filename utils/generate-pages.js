@@ -36,7 +36,7 @@ function generateQuestionPage(team, questionNumber, question) {
 <body class="${team}-theme">
     <div class="waiting-message" id="waitingMessage">
         <h2>🌴 ${teamName} - Question ${questionNumber}</h2>
-        <p>Please wait for  this question!</p>
+        <p>Please wait for this question!</p>
         <p>🤔 Question ${questionNumber} of 10 is coming up...</p>
     </div>
 
