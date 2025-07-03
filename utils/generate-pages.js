@@ -19,7 +19,7 @@ const questions = [
 function generateQuestionPage(team, questionNumber, question) {
     const teamColor = team === 'girls' ? '#ff6b6b' : '#4ecdc4';
     const teamColorHover = team === 'girls' ? '#ee5a52' : '#44a08d';
-    const teamEmoji = team === 'girls' ? '👩‍🎓' : '👨‍🎓';
+    const teamEmoji = team === 'girls' ? '💃' : '🕺';
     const teamName = team === 'girls' ? 'Team Girls' : 'Team Boys';
     const nextPage = questionNumber < 10 ? `team-${team}-${questionNumber + 1}.html` : `../bonus/bonus-${team}.html`;
     const progressPercent = (questionNumber / 10) * 100;

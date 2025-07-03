@@ -109,7 +109,7 @@ function showMessage(text, type) {
 
 // Helper functions
 function getTeamEmoji(team) {
-    return team === 'girls' ? '👩‍🎓' : '👨‍🎓';
+    return team === 'girls' ? '💃' : '🕺';
 }
 
 function getTeamColor(team) {
