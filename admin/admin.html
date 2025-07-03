@@ -1,623 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Control - PV Trivia</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌴</text></svg>">
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌴</text></svg>"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #f5f5f5;
-            padding: 20px;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        background: #f5f5f5;
+        padding: 20px;
+      }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-        }
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+      }
 
-        .admin-section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #007bff;
-        }
+      .admin-section {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 4px solid #007bff;
+      }
 
-        .admin-section h2 {
-            color: #007bff;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
+      .admin-section h2 {
+        color: #007bff;
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+      }
 
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .control-button {
+        padding: 12px 24px;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 120px;
+      }
+
+      .primary-btn {
+        background: #007bff;
+        color: white;
+      }
+
+      .primary-btn:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+      }
+
+      .success-btn {
+        background: #28a745;
+        color: white;
+      }
+
+      .success-btn:hover {
+        background: #1e7e34;
+        transform: translateY(-2px);
+      }
+
+      .warning-btn {
+        background: #ffc107;
+        color: #212529;
+      }
+
+      .warning-btn:hover {
+        background: #e0a800;
+        transform: translateY(-2px);
+      }
+
+      .danger-btn {
+        background: #dc3545;
+        color: white;
+      }
+
+      .danger-btn:hover {
+        background: #c82333;
+        transform: translateY(-2px);
+      }
+
+      .team-buttons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .team-girls-btn {
+        background: #ff6b6b;
+        color: white;
+      }
+
+      .team-girls-btn:hover {
+        background: #ee5a52;
+        transform: translateY(-2px);
+      }
+
+      .team-boys-btn {
+        background: #4ecdc4;
+        color: white;
+      }
+
+      .team-boys-btn:hover {
+        background: #44a08d;
+        transform: translateY(-2px);
+      }
+
+      .current-state {
+        background: #e9ecef;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
+
+      .current-state h3 {
+        color: #495057;
+        margin-bottom: 10px;
+      }
+
+      .state-info {
+        color: #6c757d;
+        font-size: 1.1rem;
+      }
+
+      .score-display {
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .team-score {
+        text-align: center;
+        flex: 1;
+      }
+
+      .team-score h3 {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+      }
+
+      .score-number {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .girls-score {
+        color: #ff6b6b;
+      }
+
+      .boys-score {
+        color: #4ecdc4;
+      }
+
+      .question-selector {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .question-btn {
+        padding: 8px 16px;
+        background: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-btn:hover {
+        background: #5a6268;
+      }
+
+      .question-btn.active {
+        background: #007bff;
+      }
+
+      .answers-display {
+        margin-top: 20px;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .answer-item {
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        border-left: 4px solid #dee2e6;
+      }
+
+      .girls-answer {
+        background: #fff5f5;
+        border-left-color: #ff6b6b;
+      }
+
+      .boys-answer {
+        background: #f0fdfc;
+        border-left-color: #4ecdc4;
+      }
+
+      .answer-team {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .answer-text {
+        font-size: 1.1rem;
+        color: #333;
+      }
+
+      .message {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        text-align: center;
+        display: none;
+      }
+
+      .success-message {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .error-message {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      @media (max-width: 600px) {
         .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
+          flex-direction: column;
         }
 
         .control-button {
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 120px;
-        }
-
-        .primary-btn {
-            background: #007bff;
-            color: white;
-        }
-
-        .primary-btn:hover {
-            background: #0056b3;
-            transform: translateY(-2px);
-        }
-
-        .success-btn {
-            background: #28a745;
-            color: white;
-        }
-
-        .success-btn:hover {
-            background: #1e7e34;
-            transform: translateY(-2px);
-        }
-
-        .warning-btn {
-            background: #ffc107;
-            color: #212529;
-        }
-
-        .warning-btn:hover {
-            background: #e0a800;
-            transform: translateY(-2px);
-        }
-
-        .danger-btn {
-            background: #dc3545;
-            color: white;
-        }
-
-        .danger-btn:hover {
-            background: #c82333;
-            transform: translateY(-2px);
+          width: 100%;
         }
 
         .team-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .team-girls-btn {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        .team-girls-btn:hover {
-            background: #ee5a52;
-            transform: translateY(-2px);
-        }
-
-        .team-boys-btn {
-            background: #4ecdc4;
-            color: white;
-        }
-
-        .team-boys-btn:hover {
-            background: #44a08d;
-            transform: translateY(-2px);
-        }
-
-        .current-state {
-            background: #e9ecef;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .current-state h3 {
-            color: #495057;
-            margin-bottom: 10px;
-        }
-
-        .state-info {
-            color: #6c757d;
-            font-size: 1.1rem;
+          flex-direction: column;
         }
 
         .score-display {
-            display: flex;
-            justify-content: space-between;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+          flex-direction: column;
+          gap: 20px;
         }
-
-        .team-score {
-            text-align: center;
-            flex: 1;
-        }
-
-        .team-score h3 {
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .score-number {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .girls-score {
-            color: #ff6b6b;
-        }
-
-        .boys-score {
-            color: #4ecdc4;
-        }
-
-        .question-selector {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .question-btn {
-            padding: 8px 16px;
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .question-btn:hover {
-            background: #5a6268;
-        }
-
-        .question-btn.active {
-            background: #007bff;
-        }
-
-        .answers-display {
-            margin-top: 20px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .answer-item {
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border-left: 4px solid #dee2e6;
-        }
-
-        .girls-answer {
-            background: #fff5f5;
-            border-left-color: #ff6b6b;
-        }
-
-        .boys-answer {
-            background: #f0fdfc;
-            border-left-color: #4ecdc4;
-        }
-
-        .answer-team {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .answer-text {
-            font-size: 1.1rem;
-            color: #333;
-        }
-
-        .message {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            text-align: center;
-            display: none;
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        @media (max-width: 600px) {
-            .controls {
-                flex-direction: column;
-            }
-            
-            .control-button {
-                width: 100%;
-            }
-            
-            .team-buttons {
-                flex-direction: column;
-            }
-            
-            .score-display {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>🎮 Admin Control Panel</h1>
-        
-        <div class="message" id="message"></div>
-        
-        <!-- Current Game State -->
-        <div class="admin-section">
-            <h2>Current Game State</h2>
-            <div class="current-state">
-                <h3>Display Status:</h3>
-                <div class="state-info" id="currentState">Welcome Screen</div>
-            </div>
+      <h1>🎮 Admin Control Panel</h1>
+
+      <div class="message" id="message"></div>
+
+      <!-- Current Game State -->
+      <div class="admin-section">
+        <h2>Current Game State</h2>
+        <div class="current-state">
+          <h3>Display Status:</h3>
+          <div class="state-info" id="currentState">Welcome Screen</div>
         </div>
+      </div>
 
-        <!-- Game Flow Controls -->
-        <div class="admin-section">
-            <h2>Game Flow Controls</h2>
-            <div class="controls">
-                <button class="control-button primary-btn" onclick="setGameState('welcome')">Show Welcome</button>
-                <button class="control-button success-btn" onclick="setGameState('answers')">Reveal Answers</button>
-                <button class="control-button primary-btn" onclick="setGameState('final')">Final Results</button>
-                <button class="control-button success-btn" onclick="setGameState('thanks')">Thanks for Playing</button>
-                <button class="control-button danger-btn" onclick="resetGame()">Reset Game</button>
-            </div>
+      <!-- Game Flow Controls -->
+      <div class="admin-section">
+        <h2>Game Flow Controls</h2>
+        <div class="controls">
+          <button
+            class="control-button primary-btn"
+            onclick="setGameState('welcome')"
+          >
+            Show Welcome
+          </button>
+          <button
+            class="control-button success-btn"
+            onclick="setGameState('answers')"
+          >
+            Reveal Answers
+          </button>
+          <button
+            class="control-button primary-btn"
+            onclick="setGameState('final')"
+          >
+            Final Results
+          </button>
+          <button
+            class="control-button success-btn"
+            onclick="setGameState('thanks')"
+          >
+            Thanks for Playing
+          </button>
+          <button class="control-button danger-btn" onclick="resetGame()">
+            Reset Game
+          </button>
         </div>
+      </div>
 
-        <!-- Question Navigation -->
-        <div class="admin-section">
-            <h2>Question Navigation</h2>
-            <div class="question-selector" id="questionSelector">
-                <!-- Question buttons will be generated here -->
-            </div>
+      <!-- Question Navigation -->
+      <div class="admin-section">
+        <h2>Question Navigation</h2>
+        <div class="question-selector" id="questionSelector">
+          <!-- Question buttons will be generated here -->
         </div>
+      </div>
 
-        <!-- Live Scoring -->
-        <div class="admin-section">
-            <h2>Live Scoring</h2>
-            <div class="score-display">
-                <div class="team-score">
-                    <h3>💃 Team Girls</h3>
-                    <div class="score-number girls-score" id="girlsScore">0</div>
-                    <button class="control-button team-girls-btn" onclick="addPoint('girls')">Add Point</button>
-                </div>
-                <div class="team-score">
-                    <h3>🕺 Team Boys</h3>
-                    <div class="score-number boys-score" id="boysScore">0</div>
-                    <button class="control-button team-boys-btn" onclick="addPoint('boys')">Add Point</button>
-                </div>
-            </div>
-            <div class="controls">
-                <button class="control-button danger-btn" onclick="resetScores()">Reset Scores</button>
-            </div>
+      <!-- Live Scoring -->
+      <div class="admin-section">
+        <h2>Live Scoring</h2>
+        <div class="score-display">
+          <div class="team-score">
+            <h3>💃 Team Girls</h3>
+            <div class="score-number girls-score" id="girlsScore">0</div>
+            <button
+              class="control-button team-girls-btn"
+              onclick="addPoint('girls')"
+            >
+              Add Point
+            </button>
+          </div>
+          <div class="team-score">
+            <h3>🕺 Team Boys</h3>
+            <div class="score-number boys-score" id="boysScore">0</div>
+            <button
+              class="control-button team-boys-btn"
+              onclick="addPoint('boys')"
+            >
+              Add Point
+            </button>
+          </div>
         </div>
-
-
-
-        <!-- Answer Display -->
-        <div class="admin-section">
-            <h2>Submitted Answers</h2>
-            <div class="answers-display" id="answersDisplay">
-                <p>Select a question to view answers...</p>
-            </div>
+        <div class="controls">
+          <button class="control-button danger-btn" onclick="resetScores()">
+            Reset Scores
+          </button>
         </div>
+      </div>
+
+      <!-- Answer Display -->
+      <div class="admin-section">
+        <h2>Submitted Answers</h2>
+        <div class="answers-display" id="answersDisplay">
+          <p>Select a question to view answers...</p>
+        </div>
+      </div>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, query, where, orderBy, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        doc,
+        setDoc,
+        getDoc,
+        getDocs,
+        query,
+        where,
+        orderBy,
+        onSnapshot,
+        deleteDoc,
+      } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyA1ayS7BnUHBCCVs-BooYGOdlrSSdmo7Bk",
-            authDomain: "pv-trivia.firebaseapp.com",
-            projectId: "pv-trivia",
-            storageBucket: "pv-trivia.firebasestorage.app",
-            messagingSenderId: "1021041174389",
-            appId: "1:1021041174389:web:8ed1d9d914fac43bae153c"
-        };
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA1ayS7BnUHBCCVs-BooYGOdlrSSdmo7Bk",
+        authDomain: "pv-trivia.firebaseapp.com",
+        projectId: "pv-trivia",
+        storageBucket: "pv-trivia.firebasestorage.app",
+        messagingSenderId: "1021041174389",
+        appId: "1:1021041174389:web:8ed1d9d914fac43bae153c",
+      };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
-        // Game state variables
-        let currentQuestion = 1;
-        let gameState = 'welcome';
-        let scores = { girls: 0, boys: 0 };
+      // Game state variables
+      let currentQuestion = 1;
+      let gameState = "welcome";
+      let scores = { girls: 0, boys: 0 };
 
-        // Initialize admin panel
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeQuestionSelector();
-            loadGameState();
-            loadScores();
-            setupRealtimeListeners();
-        });
+      // Initialize admin panel
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeQuestionSelector();
+        loadGameState();
+        loadScores();
+        setupRealtimeListeners();
+      });
 
-        // Generate question selector buttons
-        function initializeQuestionSelector() {
-            const selector = document.getElementById('questionSelector');
-            for (let i = 1; i <= 10; i++) {
-                const button = document.createElement('button');
-                button.className = 'question-btn';
-                button.textContent = `Q${i}`;
-                button.onclick = () => selectQuestion(i);
-                selector.appendChild(button);
-            }
-            
-            // Add bonus question button
-            const bonusButton = document.createElement('button');
-            bonusButton.className = 'question-btn';
-            bonusButton.textContent = 'BQ';
-            bonusButton.onclick = () => selectQuestion('bonus');
-            selector.appendChild(bonusButton);
-            
-            // Set first question as active
-            selector.children[0].classList.add('active');
+      // Generate question selector buttons
+      function initializeQuestionSelector() {
+        const selector = document.getElementById("questionSelector");
+        for (let i = 1; i <= 10; i++) {
+          const button = document.createElement("button");
+          button.className = "question-btn";
+          button.textContent = `Q${i}`;
+          button.onclick = () => selectQuestion(i);
+          selector.appendChild(button);
         }
 
-        // Set game state
-        window.setGameState = async function(state) {
-            try {
-                await setDoc(doc(db, 'game_control', 'current_state'), {
-                    state: state,
-                    question: currentQuestion,
-                    timestamp: new Date()
-                });
-                gameState = state;
-                updateStateDisplay();
-                showMessage('Game state updated successfully!', 'success');
-            } catch (error) {
-                console.error('Error updating game state:', error);
-                showMessage('Error updating game state.', 'error');
-            }
-        };
+        // Add bonus question button
+        const bonusButton = document.createElement("button");
+        bonusButton.className = "question-btn";
+        bonusButton.textContent = "BQ";
+        bonusButton.onclick = () => selectQuestion("bonus");
+        selector.appendChild(bonusButton);
 
-        // Reset game - delete all answers
-        window.resetGame = async function() {
-            if (confirm('Are you sure you want to reset the entire game? This will delete all answers and reset scores.')) {
-                try {
-                    // Delete all answers
-                    const answersRef = collection(db, 'trivia_answers');
-                    const answersQuery = await getDocs(answersRef);
-                    
-                    const deletePromises = [];
-                    answersQuery.forEach((doc) => {
-                        deletePromises.push(deleteDoc(doc.ref));
-                    });
-                    
-                    await Promise.all(deletePromises);
-                    
-                    // Reset scores
-                    scores = { girls: 0, boys: 0 };
-                    await setDoc(doc(db, 'game_control', 'scores'), scores);
-                    
-                    // Reset game state
-                    await setDoc(doc(db, 'game_control', 'current_state'), {
-                        state: 'welcome',
-                        question: 1,
-                        timestamp: new Date()
-                    });
-                    
-                    // Reset UI
-                    currentQuestion = 1;
-                    gameState = 'welcome';
-                    selectQuestion(1);
-                    updateScoreDisplay();
-                    updateStateDisplay();
-                    
-                    showMessage('Game reset successfully!', 'success');
-                } catch (error) {
-                    console.error('Error resetting game:', error);
-                    showMessage('Error resetting game.', 'error');
-                }
-            }
-        };
+        // Set first question as active
+        selector.children[0].classList.add("active");
+      }
 
-        // Select question
-        function selectQuestion(questionNum) {
-            currentQuestion = questionNum;
-            
-            // Update active button
-            const buttons = document.querySelectorAll('.question-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            if (questionNum === 'bonus') {
-                // Activate the BQ button (last button)
-                buttons[buttons.length - 1].classList.add('active');
-                // Set game state to bonus for the bonus question
-                setGameState('bonus');
-            } else {
-                // Activate the numeric question button
-                buttons[questionNum - 1].classList.add('active');
-                // Always show the question when navigating to numeric questions
-                setGameState('question');
-            }
-            
-            // Load answers for this question
-            loadAnswers(questionNum);
+      // Set game state
+      window.setGameState = async function (state) {
+        try {
+          await setDoc(doc(db, "game_control", "current_state"), {
+            state: state,
+            question: currentQuestion,
+            timestamp: new Date(),
+          });
+          gameState = state;
+          updateStateDisplay();
+          showMessage("Game state updated successfully!", "success");
+        } catch (error) {
+          console.error("Error updating game state:", error);
+          showMessage("Error updating game state.", "error");
+        }
+      };
+
+      // Reset game - delete all answers
+      window.resetGame = async function () {
+        if (
+          confirm(
+            "Are you sure you want to reset the entire game? This will delete all answers and reset scores."
+          )
+        ) {
+          try {
+            // Delete all answers
+            const answersRef = collection(db, "trivia_answers");
+            const answersQuery = await getDocs(answersRef);
+
+            const deletePromises = [];
+            answersQuery.forEach((doc) => {
+              deletePromises.push(deleteDoc(doc.ref));
+            });
+
+            await Promise.all(deletePromises);
+
+            // Reset scores
+            scores = { girls: 0, boys: 0 };
+            await setDoc(doc(db, "game_control", "scores"), scores);
+
+            // Reset game state
+            await setDoc(doc(db, "game_control", "current_state"), {
+              state: "welcome",
+              question: 1,
+              timestamp: new Date(),
+            });
+
+            // Reset UI
+            currentQuestion = 1;
+            gameState = "welcome";
+            selectQuestion(1);
+            updateScoreDisplay();
+            updateStateDisplay();
+
+            showMessage("Game reset successfully!", "success");
+          } catch (error) {
+            console.error("Error resetting game:", error);
+            showMessage("Error resetting game.", "error");
+          }
+        }
+      };
+
+      // Select question
+      function selectQuestion(questionNum) {
+        currentQuestion = questionNum;
+
+        // Update active button
+        const buttons = document.querySelectorAll(".question-btn");
+        buttons.forEach((btn) => btn.classList.remove("active"));
+
+        if (questionNum === "bonus") {
+          // Activate the BQ button (last button)
+          buttons[buttons.length - 1].classList.add("active");
+          // Set game state to bonus for the bonus question
+          setGameState("bonus");
+        } else {
+          // Activate the numeric question button
+          buttons[questionNum - 1].classList.add("active");
+          // Always show the question when navigating to numeric questions
+          setGameState("question");
         }
 
-// Add point to team
-        window.addPoint = async function(team) {
-            try {
-                scores[team]++;
-                await setDoc(doc(db, 'game_control', 'scores'), scores);
-                updateScoreDisplay();
-                showMessage(`Point added to Team ${team.charAt(0).toUpperCase() + team.slice(1)}!`, 'success');
-            } catch (error) {
-                console.error('Error adding point:', error);
-                showMessage('Error adding point.', 'error');
-            }
-        };
+        // Load answers for this question
+        loadAnswers(questionNum);
+      }
 
-        // Reset scores
-        window.resetScores = async function() {
-            try {
-                scores = { girls: 0, boys: 0 };
-                await setDoc(doc(db, 'game_control', 'scores'), scores);
-                updateScoreDisplay();
-                showMessage('Scores reset successfully!', 'success');
-            } catch (error) {
-                console.error('Error resetting scores:', error);
-                showMessage('Error resetting scores.', 'error');
-            }
-        };
-
-        // Load current game state
-        async function loadGameState() {
-            try {
-                const docSnap = await getDoc(doc(db, 'game_control', 'current_state'));
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    gameState = data.state;
-                    currentQuestion = data.question || 1;
-                    selectQuestion(currentQuestion);
-                }
-                updateStateDisplay();
-            } catch (error) {
-                console.error('Error loading game state:', error);
-            }
+      // Add point to team
+      window.addPoint = async function (team) {
+        try {
+          scores[team]++;
+          await setDoc(doc(db, "game_control", "scores"), scores);
+          updateScoreDisplay();
+          showMessage(
+            `Point added to Team ${
+              team.charAt(0).toUpperCase() + team.slice(1)
+            }!`,
+            "success"
+          );
+        } catch (error) {
+          console.error("Error adding point:", error);
+          showMessage("Error adding point.", "error");
         }
+      };
 
-        // Load scores
-        async function loadScores() {
-            try {
-                const docSnap = await getDoc(doc(db, 'game_control', 'scores'));
-                if (docSnap.exists()) {
-                    scores = docSnap.data();
-                }
-                updateScoreDisplay();
-            } catch (error) {
-                console.error('Error loading scores:', error);
-            }
+      // Reset scores
+      window.resetScores = async function () {
+        try {
+          scores = { girls: 0, boys: 0 };
+          await setDoc(doc(db, "game_control", "scores"), scores);
+          updateScoreDisplay();
+          showMessage("Scores reset successfully!", "success");
+        } catch (error) {
+          console.error("Error resetting scores:", error);
+          showMessage("Error resetting scores.", "error");
         }
+      };
 
-        // Load answers for a question
-        async function loadAnswers(questionNum) {
-            try {
-                const answersRef = collection(db, 'trivia_answers');
-                const q = query(answersRef, where('question', '==', questionNum), orderBy('timestamp', 'asc'));
-                const querySnapshot = await getDocs(q);
-                
-                const answersDisplay = document.getElementById('answersDisplay');
-                answersDisplay.innerHTML = '';
-                
-                if (querySnapshot.empty) {
-                    answersDisplay.innerHTML = '<p>No answers submitted yet for this question.</p>';
-                    return;
-                }
+      // Load current game state
+      async function loadGameState() {
+        try {
+          const docSnap = await getDoc(
+            doc(db, "game_control", "current_state")
+          );
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            gameState = data.state;
+            currentQuestion = data.question || 1;
+            selectQuestion(currentQuestion);
+          }
+          updateStateDisplay();
+        } catch (error) {
+          console.error("Error loading game state:", error);
+        }
+      }
 
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const answerDiv = document.createElement('div');
-                    answerDiv.className = `answer-item ${data.team}-answer`;
-                    answerDiv.innerHTML = `
-                        <div class="answer-team">Team ${data.team.charAt(0).toUpperCase() + data.team.slice(1)}</div>
+      // Load scores
+      async function loadScores() {
+        try {
+          const docSnap = await getDoc(doc(db, "game_control", "scores"));
+          if (docSnap.exists()) {
+            scores = docSnap.data();
+          }
+          updateScoreDisplay();
+        } catch (error) {
+          console.error("Error loading scores:", error);
+        }
+      }
+
+      // Load answers for a question
+      async function loadAnswers(questionNum) {
+        try {
+          const answersRef = collection(db, "trivia_answers");
+          const q = query(
+            answersRef,
+            where("question", "==", questionNum),
+            orderBy("timestamp", "asc")
+          );
+          const querySnapshot = await getDocs(q);
+
+          const answersDisplay = document.getElementById("answersDisplay");
+          answersDisplay.innerHTML = "";
+
+          if (querySnapshot.empty) {
+            answersDisplay.innerHTML =
+              "<p>No answers submitted yet for this question.</p>";
+            return;
+          }
+
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const answerDiv = document.createElement("div");
+            answerDiv.className = `answer-item ${data.team}-answer`;
+            answerDiv.innerHTML = `
+                        <div class="answer-team">Team ${
+                          data.team.charAt(0).toUpperCase() + data.team.slice(1)
+                        }</div>
                         <div class="answer-text">${data.answer}</div>
                     `;
-                    answersDisplay.appendChild(answerDiv);
-                });
-            } catch (error) {
-                console.error('Error loading answers:', error);
+            answersDisplay.appendChild(answerDiv);
+          });
+        } catch (error) {
+          console.error("Error loading answers:", error);
+        }
+      }
+
+      // Setup realtime listeners
+      function setupRealtimeListeners() {
+        // Listen for new answers
+        const answersRef = collection(db, "trivia_answers");
+        onSnapshot(answersRef, (snapshot) => {
+          snapshot.docChanges().forEach((change) => {
+            if (change.type === "added") {
+              const data = change.doc.data();
+              if (data.question === currentQuestion) {
+                loadAnswers(currentQuestion);
+              }
             }
-        }
+          });
+        });
+      }
 
-        // Setup realtime listeners
-        function setupRealtimeListeners() {
-            // Listen for new answers
-            const answersRef = collection(db, 'trivia_answers');
-            onSnapshot(answersRef, (snapshot) => {
-                snapshot.docChanges().forEach((change) => {
-                    if (change.type === 'added') {
-                        const data = change.doc.data();
-                        if (data.question === currentQuestion) {
-                            loadAnswers(currentQuestion);
-                        }
-                    }
-                });
-            });
-        }
+      // Update state display
+      function updateStateDisplay() {
+        const stateDisplay = document.getElementById("currentState");
+        const stateText = {
+          welcome: "Welcome Screen",
+          question: `Question ${currentQuestion}`,
+          answers: `Showing Answers - Question ${currentQuestion}`,
+          final: "Final Results",
+          bonus: "Bonus Question",
+          thanks: "Thanks for Playing",
+        };
+        stateDisplay.textContent = stateText[gameState] || "Unknown State";
+      }
 
-        // Update state display
-        function updateStateDisplay() {
-            const stateDisplay = document.getElementById('currentState');
-            const stateText = {
-                'welcome': 'Welcome Screen',
-                'question': `Question ${currentQuestion}`,
-                'answers': `Showing Answers - Question ${currentQuestion}`,
-                'final': 'Final Results',
-                'bonus': 'Bonus Question',
-                'thanks': 'Thanks for Playing'
-            };
-            stateDisplay.textContent = stateText[gameState] || 'Unknown State';
-        }
+      // Update score display
+      function updateScoreDisplay() {
+        document.getElementById("girlsScore").textContent = scores.girls;
+        document.getElementById("boysScore").textContent = scores.boys;
+      }
 
-        // Update score display
-        function updateScoreDisplay() {
-            document.getElementById('girlsScore').textContent = scores.girls;
-            document.getElementById('boysScore').textContent = scores.boys;
-        }
+      // Show message
+      function showMessage(text, type) {
+        const message = document.getElementById("message");
+        message.textContent = text;
+        message.className = `message ${type}-message`;
+        message.style.display = "block";
 
-        // Show message
-        function showMessage(text, type) {
-            const message = document.getElementById('message');
-            message.textContent = text;
-            message.className = `message ${type}-message`;
-            message.style.display = 'block';
-            
-            setTimeout(() => {
-                message.style.display = 'none';
-            }, 3000);
-        }
+        setTimeout(() => {
+          message.style.display = "none";
+        }, 3000);
+      }
 
-        // Initial load
-        loadAnswers(1);
+      // Initial load
+      loadAnswers(1);
     </script>
-</body>
+  </body>
 </html>

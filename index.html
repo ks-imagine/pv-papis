@@ -1,121 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PV Trivia - Team Selection</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌴</text></svg>">
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌴</text></svg>"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 50%, #ff9a8b 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #00c9ff 0%,
+          #92fe9d 50%,
+          #ff9a8b 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 60px 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .subtitle {
+        color: #666;
+        margin-bottom: 40px;
+        font-size: 1.2rem;
+      }
+
+      .team-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .team-button {
+        padding: 20px 40px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: block;
+        color: white;
+      }
+
+      .team-girls {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      }
+
+      .team-girls:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(238, 90, 82, 0.3);
+      }
+
+      .team-boys {
+        background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      }
+
+      .team-boys:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(68, 160, 141, 0.3);
+      }
+
+      @media (max-width: 600px) {
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 60px 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+          padding: 40px 20px;
         }
 
         h1 {
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 40px;
-            font-size: 1.2rem;
-        }
-
-        .team-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+          font-size: 2rem;
         }
 
         .team-button {
-            padding: 20px 40px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: block;
-            color: white;
+          padding: 15px 30px;
+          font-size: 1.2rem;
         }
-
-        .team-girls {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-        }
-
-        .team-girls:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(238, 90, 82, 0.3);
-        }
-
-        .team-boys {
-            background: linear-gradient(135deg, #4ecdc4, #44a08d);
-        }
-
-        .team-boys:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(68, 160, 141, 0.3);
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 40px 20px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .team-button {
-                padding: 15px 30px;
-                font-size: 1.2rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>🌴 PV PAPIS 🌴</h1>
-        <p class="subtitle">BATTLE OF THE SEXES TRIVIA CHALLENGE</p>
-        
-        <div class="team-buttons">
-            <a href="pages/teams/team-girls-1.html" class="team-button team-girls">
-                💃 Team Girls
-            </a>
-            <a href="pages/teams/team-boys-1.html" class="team-button team-boys">
-                🕺 Team Boys
-            </a>
-        </div>
+      <h1>🌴 PV PAPIS 🌴</h1>
+      <p class="subtitle">BATTLE OF THE SEXES TRIVIA CHALLENGE</p>
+
+      <div class="team-buttons">
+        <a href="pages/teams/team-girls-1.html" class="team-button team-girls">
+          💃 Team Girls
+        </a>
+        <a href="pages/teams/team-boys-1.html" class="team-button team-boys">
+          🕺 Team Boys
+        </a>
+      </div>
     </div>
-</body>
+  </body>
 </html>

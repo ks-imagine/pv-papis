@@ -1,134 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Team Girls - Bonus Question</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌴</text></svg>">
-    <link rel="stylesheet" href="../../styles/bonus-styles.css">
-</head>
-<body class="girls-theme">
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌴</text></svg>"
+    />
+    <link rel="stylesheet" href="../../styles/bonus-styles.css" />
+  </head>
+  <body class="girls-theme">
     <div class="waiting-message" id="waitingMessage">
-        <h2>🌴 Team Girls - Bonus Round</h2>
-        <p>Please wait for the admin to reveal the bonus question!</p>
-        <p>🤔 Something special is coming...</p>
+      <h2>🌴 Team Girls - Bonus Round</h2>
+      <p>Please wait for the admin to reveal the bonus question!</p>
+      <p>🤔 Something special is coming...</p>
     </div>
 
     <div class="container hidden" id="bonusContainer">
-        <div class="team-header">
-            <div class="team-name">💃 Team Girls</div>
+      <div class="team-header">
+        <div class="team-name">💃 Team Girls</div>
+      </div>
+
+      <div class="bonus-label">🏆 BONUS QUESTION 🏆</div>
+
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Riley_Reid_2019_by_Glenn_Francis.jpg/500px-Riley_Reid_2019_by_Glenn_Francis.jpg"
+        alt="Riley Reid"
+        class="riley-reid-image"
+      />
+
+      <div class="question-text">
+        What is Einstein's theory of relativity and how did it change our
+        understanding of space and time?
+      </div>
+
+      <div class="warning">
+        ⚠️ <strong>Double or Nothing!</strong> ⚠️<br />
+        Get this right and double your score! Get it wrong and lose all your
+        points!
+      </div>
+
+      <div class="message" id="message"></div>
+
+      <form id="bonusForm">
+        <div class="form-group">
+          <label for="answer">Your Answer:</label>
+          <textarea
+            id="answer"
+            name="answer"
+            placeholder="Enter your detailed answer here..."
+            required
+          ></textarea>
         </div>
-        
-        <div class="bonus-label">🏆 BONUS QUESTION 🏆</div>
-        
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Riley_Reid_2019_by_Glenn_Francis.jpg/500px-Riley_Reid_2019_by_Glenn_Francis.jpg" 
-             alt="Riley Reid" class="riley-reid-image">
-        
-        <div class="question-text">
-            What is Einstein's theory of relativity and how did it change our understanding of space and time?
-        </div>
-        
-        <div class="warning">
-            ⚠️ <strong>Double or Nothing!</strong> ⚠️<br>
-            Get this right and double your score! Get it wrong and lose all your points!
-        </div>
-        
-        <div class="message" id="message"></div>
-        
-        <form id="bonusForm">
-            <div class="form-group">
-                <label for="answer">Your Answer:</label>
-                <textarea id="answer" name="answer" placeholder="Enter your detailed answer here..." required></textarea>
-            </div>
-            
-            <button type="submit" class="submit-btn">Submit Final Answer</button>
-        </form>
+
+        <button type="submit" class="submit-btn">Submit Final Answer</button>
+      </form>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, doc, onSnapshot, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        doc,
+        onSnapshot,
+        query,
+        where,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyA1ayS7BnUHBCCVs-BooYGOdlrSSdmo7Bk",
-            authDomain: "pv-trivia.firebaseapp.com",
-            projectId: "pv-trivia",
-            storageBucket: "pv-trivia.firebasestorage.app",
-            messagingSenderId: "1021041174389",
-            appId: "1:1021041174389:web:8ed1d9d914fac43bae153c"
-        };
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA1ayS7BnUHBCCVs-BooYGOdlrSSdmo7Bk",
+        authDomain: "pv-trivia.firebaseapp.com",
+        projectId: "pv-trivia",
+        storageBucket: "pv-trivia.firebasestorage.app",
+        messagingSenderId: "1021041174389",
+        appId: "1:1021041174389:web:8ed1d9d914fac43bae153c",
+      };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
-        // Check if bonus question is revealed
-        function checkBonusRevealed() {
-            const gameStateRef = doc(db, 'game_control', 'current_state');
-            onSnapshot(gameStateRef, (doc) => {
-                if (doc.exists()) {
-                    const data = doc.data();
-                    const gameState = data.state;
-                    const currentQuestion = data.question;
-                    
-                    // Check if team has already submitted bonus answer
-                    checkIfBonusSubmitted().then(hasSubmitted => {
-                        if (hasSubmitted) {
-                            // Team has submitted - show appropriate message based on state
-                            if (gameState === 'thank-you') {
-                                showThankYouMessage();
-                            } else {
-                                // Stay on "fate is in judges hands" message - don't change anything
-                                return;
-                            }
-                        } else {
-                            // Team hasn't submitted yet - normal reveal logic
-                            if ((gameState === 'bonus') || (gameState === 'question' && currentQuestion === 'bonus')) {
-                                // Show bonus question
-                                document.getElementById('waitingMessage').style.display = 'none';
-                                document.getElementById('bonusContainer').classList.remove('hidden');
-                            } else if (gameState === 'thank-you') {
-                                showThankYouMessage();
-                            } else {
-                                // Hide bonus question
-                                document.getElementById('waitingMessage').style.display = 'block';
-                                document.getElementById('bonusContainer').classList.add('hidden');
-                            }
-                        }
-                    });
+      // Check if bonus question is revealed
+      function checkBonusRevealed() {
+        const gameStateRef = doc(db, "game_control", "current_state");
+        onSnapshot(gameStateRef, (doc) => {
+          if (doc.exists()) {
+            const data = doc.data();
+            const gameState = data.state;
+            const currentQuestion = data.question;
+
+            // Check if team has already submitted bonus answer
+            checkIfBonusSubmitted().then((hasSubmitted) => {
+              if (hasSubmitted) {
+                // Team has submitted - show appropriate message based on state
+                if (gameState === "thank-you") {
+                  showThankYouMessage();
+                } else {
+                  // Stay on "fate is in judges hands" message - don't change anything
+                  return;
                 }
+              } else {
+                // Team hasn't submitted yet - normal reveal logic
+                if (
+                  gameState === "bonus" ||
+                  (gameState === "question" && currentQuestion === "bonus")
+                ) {
+                  // Show bonus question
+                  document.getElementById("waitingMessage").style.display =
+                    "none";
+                  document
+                    .getElementById("bonusContainer")
+                    .classList.remove("hidden");
+                } else if (gameState === "thank-you") {
+                  showThankYouMessage();
+                } else {
+                  // Hide bonus question
+                  document.getElementById("waitingMessage").style.display =
+                    "block";
+                  document
+                    .getElementById("bonusContainer")
+                    .classList.add("hidden");
+                }
+              }
             });
+          }
+        });
+      }
+
+      // Check if team has already submitted bonus answer
+      async function checkIfBonusSubmitted() {
+        try {
+          const answersRef = collection(db, "trivia_answers");
+          const q = query(
+            answersRef,
+            where("team", "==", "girls"),
+            where("question", "==", "bonus")
+          );
+          const querySnapshot = await getDocs(q);
+          return !querySnapshot.empty;
+        } catch (error) {
+          console.error("Error checking bonus submission:", error);
+          return false;
+        }
+      }
+
+      // Show thank you message
+      function showThankYouMessage() {
+        document.getElementById("waitingMessage").style.display = "none";
+        document.getElementById("bonusContainer").style.display = "none";
+
+        // Create or update thank you container
+        let thankYouContainer = document.getElementById("thankYouContainer");
+        if (!thankYouContainer) {
+          thankYouContainer = document.createElement("div");
+          thankYouContainer.id = "thankYouContainer";
+          thankYouContainer.className = "container";
+          document.body.appendChild(thankYouContainer);
         }
 
-        // Check if team has already submitted bonus answer
-        async function checkIfBonusSubmitted() {
-            try {
-                const answersRef = collection(db, 'trivia_answers');
-                const q = query(answersRef, where('team', '==', 'girls'), where('question', '==', 'bonus'));
-                const querySnapshot = await getDocs(q);
-                return !querySnapshot.empty;
-            } catch (error) {
-                console.error('Error checking bonus submission:', error);
-                return false;
-            }
-        }
-
-        // Show thank you message
-        function showThankYouMessage() {
-            document.getElementById('waitingMessage').style.display = 'none';
-            document.getElementById('bonusContainer').style.display = 'none';
-            
-            // Create or update thank you container
-            let thankYouContainer = document.getElementById('thankYouContainer');
-            if (!thankYouContainer) {
-                thankYouContainer = document.createElement('div');
-                thankYouContainer.id = 'thankYouContainer';
-                thankYouContainer.className = 'container';
-                document.body.appendChild(thankYouContainer);
-            }
-            
-            thankYouContainer.innerHTML = `
+        thankYouContainer.innerHTML = `
                 <div class="team-header">
                     <div class="team-name">💃 Team Girls</div>
                 </div>
@@ -144,60 +179,60 @@
                     <div style="margin-top: 30px; font-size: 3rem;">🏆</div>
                 </div>
             `;
-            thankYouContainer.style.display = 'block';
-        }
+        thankYouContainer.style.display = "block";
+      }
 
-        // Show message function
-        function showMessage(text, type) {
-            const message = document.getElementById('message');
-            if (message) {
-                message.textContent = text;
-                message.className = `message ${type}-message`;
-                message.style.display = 'block';
-                
-                if (type === 'success') {
-                    setTimeout(() => {
-                        message.style.display = 'none';
-                    }, 5000);
-                }
-            }
-        }
+      // Show message function
+      function showMessage(text, type) {
+        const message = document.getElementById("message");
+        if (message) {
+          message.textContent = text;
+          message.className = `message ${type}-message`;
+          message.style.display = "block";
 
-        // Initialize page when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            checkBonusRevealed();
-            
-            // Handle form submission
-            const form = document.getElementById('bonusForm');
-            const answerInput = document.getElementById('answer');
-            
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const answer = answerInput.value.trim();
-                
-                if (!answer) {
-                    showMessage('Please enter an answer before submitting.', 'error');
-                    return;
-                }
-                
-                try {
-                    // Submit answer to Firebase
-                    await addDoc(collection(db, 'trivia_answers'), {
-                        team: 'girls',
-                        question: 'bonus',
-                        answer: answer,
-                        timestamp: new Date()
-                    });
-                    
-                    showMessage('Bonus answer submitted successfully!', 'success');
-                    
-                    // Disable form
-                    form.style.display = 'none';
-                    
-                    // Show completion message
-                    setTimeout(() => {
-                        document.querySelector('.container').innerHTML = `
+          if (type === "success") {
+            setTimeout(() => {
+              message.style.display = "none";
+            }, 5000);
+          }
+        }
+      }
+
+      // Initialize page when DOM is loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        checkBonusRevealed();
+
+        // Handle form submission
+        const form = document.getElementById("bonusForm");
+        const answerInput = document.getElementById("answer");
+
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const answer = answerInput.value.trim();
+
+          if (!answer) {
+            showMessage("Please enter an answer before submitting.", "error");
+            return;
+          }
+
+          try {
+            // Submit answer to Firebase
+            await addDoc(collection(db, "trivia_answers"), {
+              team: "girls",
+              question: "bonus",
+              answer: answer,
+              timestamp: new Date(),
+            });
+
+            showMessage("Bonus answer submitted successfully!", "success");
+
+            // Disable form
+            form.style.display = "none";
+
+            // Show completion message
+            setTimeout(() => {
+              document.querySelector(".container").innerHTML = `
                             <div class="team-header">
                                 <div class="team-name">💃 Team Girls</div>
                             </div>
@@ -209,14 +244,13 @@
                                 </p>
                             </div>
                         `;
-                    }, 2000);
-                    
-                } catch (error) {
-                    console.error('Error submitting answer:', error);
-                    showMessage('Error submitting answer. Please try again.', 'error');
-                }
-            });
+            }, 2000);
+          } catch (error) {
+            console.error("Error submitting answer:", error);
+            showMessage("Error submitting answer. Please try again.", "error");
+          }
         });
+      });
     </script>
-</body>
+  </body>
 </html>

@@ -2,18 +2,18 @@
 const fs = require('fs');
 const path = require('path');
 
-// Sample questions for the trivia game
+// Questions for the trivia game
 const questions = [
-    "What is the capital of France?",
-    "Which planet is known as the Red Planet?",
-    "Who painted the Mona Lisa?",
-    "What is the largest ocean on Earth?",
-    "In which year did World War II end?",
-    "What is the chemical symbol for gold?",
-    "Which country invented pizza?",
-    "What is the tallest mountain in the world?",
-    "Who wrote the novel 'Pride and Prejudice'?",
-    "What is the smallest planet in our solar system?"
+    "What is 9 ÷ 3(1 + 2)?",
+    "What is your waterline?",
+    "What sizes do tampons come in?",
+    "Who won the 2024 World Series?",
+    "What are flyaways?",
+    "What is a money piece?",
+    "Where is the G-spot located?",
+    "What does LBD mean?",
+    "What does the \"number\" on foundation mean? (e.g. 120, 340, etc.)",
+    "What is a diva cup used for?"
 ];
 
 function generateQuestionPage(team, questionNumber, question) {

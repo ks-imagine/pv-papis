@@ -1,220 +1,240 @@
 /* Team Question Page Shared Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
+  font-family: "Arial", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.95);
-    color: #333;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    width: 90%;
-    text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  width: 90%;
+  text-align: center;
 }
 
 .waiting-message {
-    text-align: center;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    color: #333;
-    max-width: 600px;
-    width: 90%;
-    margin: 0 auto;
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  color: #333;
+  max-width: 600px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .waiting-message h2 {
-    margin-bottom: 20px;
-    font-size: 2rem;
+  margin-bottom: 20px;
+  font-size: 2rem;
 }
 
 .waiting-message p {
-    font-size: 1.2rem;
-    line-height: 1.6;
+  font-size: 1.2rem;
+  line-height: 1.6;
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }
 
 .team-header {
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 30px;
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 30px;
 }
 
 .team-name {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .progress-bar {
-    width: 100%;
-    height: 8px;
-    background: #e0e0e0;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 30px;
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 30px;
 }
 
 .progress-fill {
-    height: 100%;
-    transition: width 0.3s ease;
+  height: 100%;
+  transition: width 0.3s ease;
 }
 
-.progress-10 { width: 10%; }
-.progress-20 { width: 20%; }
-.progress-30 { width: 30%; }
-.progress-40 { width: 40%; }
-.progress-50 { width: 50%; }
-.progress-60 { width: 60%; }
-.progress-70 { width: 70%; }
-.progress-80 { width: 80%; }
-.progress-90 { width: 90%; }
-.progress-100 { width: 100%; }
+.progress-10 {
+  width: 10%;
+}
+.progress-20 {
+  width: 20%;
+}
+.progress-30 {
+  width: 30%;
+}
+.progress-40 {
+  width: 40%;
+}
+.progress-50 {
+  width: 50%;
+}
+.progress-60 {
+  width: 60%;
+}
+.progress-70 {
+  width: 70%;
+}
+.progress-80 {
+  width: 80%;
+}
+.progress-90 {
+  width: 90%;
+}
+.progress-100 {
+  width: 100%;
+}
 
 .question-number {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .question-text {
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 30px;
-    line-height: 1.6;
-    text-align: center;
-    font-weight: 500;
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  text-align: center;
+  font-weight: 500;
 }
 
 .answer-form {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .answer-input {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.1rem;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    outline: none;
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
 .submit-button {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
 }
 
 .submit-button:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .submit-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .message {
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    display: none;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: none;
 }
 
 .success {
-    background: #d4edda;
-    color: #155724;
-    border: 2px solid #c3e6cb;
+  background: #d4edda;
+  color: #155724;
+  border: 2px solid #c3e6cb;
 }
 
 .error {
-    background: #f8d7da;
-    color: #721c24;
-    border: 2px solid #f5c6cb;
+  background: #f8d7da;
+  color: #721c24;
+  border: 2px solid #f5c6cb;
 }
 
 @media (max-width: 600px) {
-    .container {
-        padding: 20px;
-    }
-    
-    .team-name {
-        font-size: 2rem;
-    }
-    
-    .question-text {
-        font-size: 1.1rem;
-    }
+  .container {
+    padding: 20px;
+  }
+
+  .team-name {
+    font-size: 2rem;
+  }
+
+  .question-text {
+    font-size: 1.1rem;
+  }
 }
 
 /* Girls Team Colors */
 .girls-theme {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ff9a8b 50%, #ffb347 100%);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff9a8b 50%, #ffb347 100%);
 }
 
 .girls-theme .team-header {
-    background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
+  background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
 }
 
 .girls-theme .progress-fill {
-    background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
+  background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
 }
 
 .girls-theme .answer-input:focus {
-    border-color: #ff6b6b;
+  border-color: #ff6b6b;
 }
 
 .girls-theme .submit-button {
-    background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
-    box-shadow: 0 5px 15px rgba(255, 154, 139, 0.4);
+  background: linear-gradient(135deg, #ff6b6b, #ff9a8b);
+  box-shadow: 0 5px 15px rgba(255, 154, 139, 0.4);
 }
 
 /* Boys Team Colors */
 .boys-theme {
-    background: linear-gradient(135deg, #4ecdc4 0%, #92fe9d 50%, #00c9ff 100%);
+  background: linear-gradient(135deg, #4ecdc4 0%, #92fe9d 50%, #00c9ff 100%);
 }
 
 .boys-theme .team-header {
-    background: linear-gradient(135deg, #4ecdc4, #92fe9d);
+  background: linear-gradient(135deg, #4ecdc4, #92fe9d);
 }
 
 .boys-theme .progress-fill {
-    background: linear-gradient(135deg, #4ecdc4, #92fe9d);
+  background: linear-gradient(135deg, #4ecdc4, #92fe9d);
 }
 
 .boys-theme .answer-input:focus {
-    border-color: #4ecdc4;
+  border-color: #4ecdc4;
 }
 
 .boys-theme .submit-button {
-    background: linear-gradient(135deg, #4ecdc4, #92fe9d);
-    box-shadow: 0 5px 15px rgba(146, 254, 157, 0.4);
+  background: linear-gradient(135deg, #4ecdc4, #92fe9d);
+  box-shadow: 0 5px 15px rgba(146, 254, 157, 0.4);
 }
